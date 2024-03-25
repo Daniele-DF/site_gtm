@@ -1,0 +1,253 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+
+/* reset : per adattare il sito a più browser  */
+
+/*   '*' :  selettore universale che applicherà ad ogni elemento della pagina tali proprietà  */
+
+/* box-sizing : proprietà di ridimensionamento -> non vengono cosi applicati  margini e padding aggiuntivi */
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box; 
+}
+
+body{
+	font-family: "Lato", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.7;
+	color: #777;
+	padding: 30px; /* spazio tra il margine iniziale attaccato alla pagina e il div  */
+}
+
+
+/* header  */
+
+
+.header{
+	height: 95vh; /* equivale a 95% */
+
+	/* impostiamo immagine più il colore dello sfondo con linear-gradient (colori sfondo) -> 
+	to left o to right (da sinistra o destra verde chiaro e poi dark)  
+	oppure   to left bottom -> da sinistra e in basso verde chiaro e poi scuro     */
+	
+	background-image: linear-gradient(
+		to right bottom,
+		 rgba(126,213,111,0.8), 
+		 rgba(40,180,131,0.8)),
+		 url(../img/hero.jpg); 
+
+	background-size: cover; /* img si adatterà al box  */
+	background-position: top; /* quando ridimensiono l'img (restringo o allargo) essa farà vedere la parte superiore della foto  */
+	clip-path: polygon(0% 0%,100% 0%, 100% 80%, 0% 100%); /* vedere spiegazione clip-path.txt  */
+	position: relative; /* padre dell'elemento che ha position absolute */
+	
+}
+
+
+/* logo nell'header  */
+
+.logo-box{
+	position: absolute;
+	top:40px;    
+	left: 40px;
+	/* da dove parto con 40% ? dal padre -> dal position relative -> da li sposto di 40px top e left */
+	}
+
+
+.logo{
+	 height: 35px;
+	}
+
+
+
+/* testo centrale dell'header  */
+
+/* posizione centrale */ 
+/* position: absolute -> fa riferimento al padre (relative -> .header) */ 
+/* sposto di 40% dall'alto e 50% da sininstra  */
+/* traslate(-50%, -50%) corrispondono a top e left al contrario -50% e 50%  -> verso il centro */
+.text-box{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+
+}
+
+
+
+.heading-primary{
+	color: white;
+	text-transform: uppercase;
+	backface-visibility: hidden;
+
+
+
+}
+
+	/*  mettere il testo (titolo e sub) uno sotto l'altro */
+	/*  usiamo display: block  */
+	/*  nel html abbiamo inserito title e sub in due span  */
+	/*  usiamo lo span che è un elemento di linea  */
+
+
+/* titolo header  */
+
+.heading-primary-title{
+	font-size: 60px;
+	font-weight: 400;
+	display: block; /* occupa tutto lo spazio del box -> 100% -> se ispezioni l'elemento e ci passi sopra viene evidenziato in blu */
+    letter-spacing: 35px;
+
+    /* animazioni  */
+    animation-name: moveInRight;
+    animation-duration: 5s;
+    
+
+}
+
+/* sub header  */
+.heading-primary-sub {
+	font-size: 20px;
+	font-weight: 400;
+	display: block;
+	letter-spacing: 17.4px;
+	margin-bottom: 40px;
+
+ /* animazioni  */
+	 animation-name: moveInLeft;
+     animation-duration: 5s;
+     
+
+ }
+ 
+/* animazioni  */
+
+@keyframes moveInRight{
+	0% {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+
+	80%{
+		transform: translateX(-50px);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+
+
+@keyframes moveInLeft{
+	0% {
+		opacity: 0;
+		transform: translateX(-100px);
+	}
+
+	80%{
+		transform: translateX(50px);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+/* bottone header */
+
+/* .btn .bt-white -> classe bottone */
+
+/* .btn:link -> pseudo-classe */
+/* stato speciale di un selettore */
+/* :link stato del selettore di un bottone  */
+/* :visited stato del selettore dopo aver fatto click sul bottone  */
+
+.btn:link,
+.btn:visited {
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 15px 40px;          /* 15px (top - bottom)  40px(left & right) */
+	display: inline-block;       
+	border-radius: 100px;
+	transition: all 0.2s;        /* animazione -> all -> applica a tutto -> 0.2 secondi   */
+	position: relative;
+}
+
+
+.btn-white{
+	background-color: white;
+	color: #777; /* grey */
+}
+
+/* vogliamo che quando passiamo il mouse sul bottone esso si sposta leggermente in alto  */
+/* asse delle Y quindi -> trasform: traslateY (valore negativo) ;  */
+/* aggiungiamo l'ombra -> box-shadow: [top/bottom - right/left] rgb(colore: primi 3 valori, opacity)*/
+.btn:hover {
+	transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgb(0,0,0,.2);
+}
+
+/* active -> se clicco sul bottone esso diventa stato active  */
+.btn:active{
+transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgb(0,0,0,.2);
+}
+
+/* animazione -> zoom quando passo sul bottone e scia bianca  */
+
+/* ::after -> pseudo-elemento dopo  */
+/* si posiziona dietro il bottone vero e proprio -> si sovrappone ad esso */
+/*  quando passo con il mouse sull'elemento viene visualizzato, una volta tolto il mouse torna alla posizione originaria */
+/*  vogliamo che tale pseudo elemento sia identico al bottone ovviamente */
+/* .btn::after è child di btn -> quindi se inserisco 	width: 100& e height: 100%; vuol dire che occuperà tutto lo spazio del padre */
+/* quindi si sovrappone al bottone  */
+/* usiamo allora position absolute qui e nel padre position relative  */
+/* da absolute, il primo relative che incontra tornando sopra tra le regole css, è il padre  */
+
+
+/* quindi appena aggiorno la pagina vedo il bottone originale  */
+/* come passo con il cursore sul bottone (.btn:hover::after -> z-index:1) allora .btn::after viene visualizzato 
+   con le sue proprietà inserite in .btn::after e .btn-white::after */
+
+.btn::after{
+	content: "";
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	border-radius: 100px;
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: -1; /* non visibile in posizione di default (dietro il bottone (si sovrappone, nascosto)) */
+	transition: all .4s; /* effetto bianco animazione intorno al mouse */
+}
+
+
+.btn-white::after{
+	background-color: #fff;
+	color: #777;
+}
+
+.btn:hover::after{
+	z-index: 1; /* visualizziamo il bottone .btn::after */
+	/* transform: scale(2);  /* ingrandisco il bottone il doppio delle dimensioni originali  usando Scale(2) */
+    transform: scaleX(1.5) scaleY(1.5);
+	opacity: 0;
+
+
+}
